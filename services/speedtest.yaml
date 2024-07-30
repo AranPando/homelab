@@ -7,15 +7,10 @@ services:
     environment:
       MODE: standalone
       TITLE: PandaSpeed
-      #TELEMETRY: "false"
-      #ENABLE_ID_OBFUSCATION: "false"
-      #REDACT_IP_ADDRESSES: "false"
-      #PASSWORD:
-      #EMAIL:
-      #DISABLE_IPINFO: "false"
-      #DISTANCE: "km"
-      #WEBPORT: 80
+      TELEMETRY: true
     ports:
       - 80:80 # webport mapping (host:container)
+    env_file: 
+      - path: ./secrets/speedtest.env
     volumes:
       - ${SERVER_CONFIG_PATH}/librespeed:/database
