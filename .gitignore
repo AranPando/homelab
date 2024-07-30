@@ -1,0 +1,2 @@
+# Exclude secrets
+services/secrets/*.env
