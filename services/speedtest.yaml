@@ -1,11 +1,12 @@
+---
 services:
   speedtest:
     container_name: speedtest
     image: ghcr.io/librespeed/speedtest:latest
-    restart: always
+    restart: unless-stopped
     environment:
       MODE: standalone
-      #TITLE: "LibreSpeed"
+      TITLE: PandaSpeed
       #TELEMETRY: "false"
       #ENABLE_ID_OBFUSCATION: "false"
       #REDACT_IP_ADDRESSES: "false"
@@ -16,3 +17,5 @@ services:
       #WEBPORT: 80
     ports:
       - 80:80 # webport mapping (host:container)
+    volumes:
+      - ${SERVER_CONFIG_PATH}/librespeed:/database
