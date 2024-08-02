@@ -1,5 +1,24 @@
 ---
 services:
+  speedtest-tracker:
+    container_name: speedtest-tracker
+    image: lscr.io/linuxserver/speedtest-tracker:latest
+    restart: unless-stopped
+    environment:
+      - PUID=${PUID}
+      - PGID=${GUID}
+      - TZ=${DEFAULT_TIMEZONE}
+      - DB_CONNECTION=sqlite
+      - SPEEDTEST_SCHEDULE="0 8,12,18 * * *"  # 8 AM, noon, and 6 PM every day 
+      - DISPLAY_TIMEZONE=${TIMEZONE}  # optional
+      - PRUNE_RESULTS_OLDER_THAN=92  # optional
+    env_file: 
+      - path: ./secrets/speedtest-tracker.env
+    ports:
+      - 81:80 # webport mapping (host:container)
+    volumes:
+      - ${SERVER_CONFIG_PATH}/speedtest-tracker:/config
+
   speedtest:
     container_name: speedtest
     image: ghcr.io/librespeed/speedtest:latest
@@ -8,9 +27,9 @@ services:
       MODE: standalone
       TITLE: PandaSpeed
       TELEMETRY: true
-    ports:
-      - 80:80 # webport mapping (host:container)
     env_file: 
       - path: ./secrets/speedtest.env
+    ports:
+      - 80:80  # webport mapping (host:container)
     volumes:
       - ${SERVER_CONFIG_PATH}/librespeed:/database
