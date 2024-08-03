@@ -1,0 +1,15 @@
+---
+services:
+  caddy:
+    container_name: caddy
+    image: caddy
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+      - 443:443/udp
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ${SERVER_CONFIG_PATH}/caddy/site:/srv
+      - ${SERVER_CONFIG_PATH}/caddy/data:/data
+      - ${SERVER_CONFIG_PATH}/caddy/config:/config
