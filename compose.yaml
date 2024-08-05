@@ -7,5 +7,5 @@
 ---
 name: homelab
 include:
-  # - path: services/caddy.yaml
+  - path: services/caddy.yaml
   - path: services/speedtest.yaml
