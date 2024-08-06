@@ -3,10 +3,10 @@
 }
 
 :80 {
-    reverse_proxy /* speedtest:80
+    reverse_proxy speedtest:80
 }
 
 :81 {
-    reverse_proxy /* speedtest-tracker:80
+    reverse_proxy speedtest-tracker:80
 }
 
