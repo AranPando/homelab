@@ -14,8 +14,6 @@ services:
       - PRUNE_RESULTS_OLDER_THAN=92  # optional
     env_file: 
       - path: ${SECRETS_PATH}/speedtest-tracker.env
-    ports:
-      - 81:80 # webport mapping (host:container)
     volumes:
       - ${SERVER_CONFIG_PATH}/speedtest-tracker:/config
 
@@ -29,7 +27,5 @@ services:
       TELEMETRY: true
     env_file: 
       - path: ${SECRETS_PATH}/speedtest.env
-    ports:
-      - 80:80  # webport mapping (host:container)
     volumes:
       - ${SERVER_CONFIG_PATH}/librespeed:/database

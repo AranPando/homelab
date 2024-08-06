@@ -5,7 +5,10 @@ services:
     image: caddy
     restart: unless-stopped
     ports:
+    # Open up port per service as per Caddyfile
       - 80:80
+      - 81:81
+    # Defaults once I have HTTPS
       - 443:443
       - 443:443/udp
     volumes:
