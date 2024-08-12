@@ -9,7 +9,7 @@ services:
       - PGID=${GUID}
       - APP_TIMEZONE=${SERVER_TZ}
       - DB_CONNECTION=sqlite
-      - SPEEDTEST_SCHEDULE="0 8,12,18 * * *"  # 8 AM, noon, and 6 PM every day 
+      - SPEEDTEST_SCHEDULE="0 * * * *"  # every hour, every day, on the hour.
       - DISPLAY_TIMEZONE=${SERVER_TZ}  # optional
       - PRUNE_RESULTS_OLDER_THAN=92  # optional
     env_file: 
