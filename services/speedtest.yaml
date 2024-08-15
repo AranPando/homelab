@@ -5,8 +5,6 @@ services:
     image: lscr.io/linuxserver/speedtest-tracker:latest
     restart: unless-stopped
     environment:
-      - PUID=${PUID}
-      - PGID=${GUID}
       - APP_TIMEZONE=${SERVER_TZ}
       - DB_CONNECTION=sqlite
       - SPEEDTEST_SCHEDULE="0 * * * *"  # every hour, every day, on the hour.

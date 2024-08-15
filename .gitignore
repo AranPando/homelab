@@ -1,2 +1,5 @@
 # Exclude secrets
 services/secrets/*.env
+
+# Exclude config directory
+config/
