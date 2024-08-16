@@ -2,17 +2,16 @@
 services:
   caddy:
     container_name: caddy
-    image: caddy
+    image: serfriz/caddy-duckdns:latest
     restart: unless-stopped
+    env_file: 
+      - path: ${SECRETS_PATH}/caddy.env
     ports:
-    # Open up port per service as per Caddyfile
       - 80:80
-      - 81:81
-    # Defaults once I have HTTPS
       - 443:443
       - 443:443/udp
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - ${SERVER_CONFIG_PATH}/caddy/site:/srv
       - ${SERVER_CONFIG_PATH}/caddy/data:/data
       - ${SERVER_CONFIG_PATH}/caddy/config:/config

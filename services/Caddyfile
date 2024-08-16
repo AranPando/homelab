@@ -1,12 +1,21 @@
 {
-    # Empty global options file
+    # Configures the ACME DNS challenge provider to use for all ACME transactions.
+    # Alternatively, the tls directive can be used at each site.
+    # See cloudflare dns exaple: 
+    # https://github.com/caddy-dns/cloudflare?tab=readme-ov-file#single-key-approach
+    acme_dns duckdns {env.DUCKDNS_API_TOKEN}
+    email {env.ACME_ACCOUNT_EMAIL}
+
 }
 
-:80 {
-    reverse_proxy speedtest:80
-}
+# Must use wildcard certificate for sub-subdomains of DuckDNS, because these
+#   custom subdomains don't have their own DNS record and therefore fail the
+#   ACME DNS-01 challenge
+*.{$DOMAIN} {
 
-:81 {
-    reverse_proxy speedtest-tracker:80
-}
+    @speedtest         host speedtest.{$DOMAIN}
+    @speedtest-tracker host speedtest-tracker.{$DOMAIN}
 
+    reverse_proxy @speedtest         speedtest:80
+    reverse_proxy @speedtest-tracker speedtest-tracker:80
+}
