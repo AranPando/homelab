@@ -9,3 +9,4 @@ name: homelab
 include:
   - path: services/caddy.yaml
   - path: services/speedtest.yaml
+  - path: services/watchtower.yaml

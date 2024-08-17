@@ -1,0 +1,13 @@
+---
+services:
+  watchtower:
+    container_name: watchtower
+    image: containrrr/watchtower:latest
+    restart: unless-stopped
+    environment:
+      - TZ=${SERVER_TZ}
+      - WATCHTOWER_CLEANUP=true          # Removes old images after updating container
+      - WATCHTOWER_INCLUDE_STOPPED=true  # Also update non-running containers
+      - WATCHTOWER_SCHEDULE=0 7 * * *    # Run at 7am daily
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
