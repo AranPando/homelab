@@ -3,3 +3,6 @@ services/secrets/*.env
 
 # Exclude config directory
 config/
+
+# Exclude data directory
+data/
