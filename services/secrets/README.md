@@ -22,7 +22,18 @@ A chosen email address. Mainly used when creating an ACME account with your CA, 
 
 Domain address which Caddy will server as a reverse proxy for.
 
-## speedtest-tracker.env
+## gluetun.env
+
+```
+OPENVPN_USER
+OPENVPN_PASSWORD
+```
+
+### OPENVPN_USER & OPENVPN_PASSWORD
+
+The process is VPN provider specific. For current provider (Proton VPN) see: https://github.com/qdm12/gluetun-wiki/blob/main/setup/providers/protonvpn.md
+
+## speedtest-tracker.env / gluetun-speedtest-tracker.env
 
 ```
 APP_KEY
