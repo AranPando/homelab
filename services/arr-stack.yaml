@@ -13,7 +13,7 @@ services:
     environment:
       - VPN_SERVICE_PROVIDER=protonvpn
       - VPN_TYPE=openvpn
-      - SERVER_COUNTRIES=Japan
+      - TZ=${SERVER_TZ}
       - UPDATER_PERIOD=24h
   
   gluetun-speedtest-tracker:
