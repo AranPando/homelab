@@ -63,3 +63,7 @@ Any random string. Used to login to the information panel.
 ### EMAIL
 
 A chosen email address. Email address for GDPR requests. Must be specified when telemetry is enabled.
+
+## watchtower.env
+
+todo
