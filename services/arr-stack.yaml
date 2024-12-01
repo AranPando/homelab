@@ -21,6 +21,8 @@ services:
     image: lscr.io/linuxserver/speedtest-tracker:latest
     restart: unless-stopped
     network_mode: service:gluetun
+    depends_on:
+      - gluetun
     environment:
       - APP_TIMEZONE=${SERVER_TZ}
       - DB_CONNECTION=sqlite
