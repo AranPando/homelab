@@ -32,8 +32,8 @@
 -   [**Watchtower**](https://github.com/containrrr/watchtower): automated container image updates.
 -   [**Pushover**](https://pushover.net/): push notifications hook into services.
 -   [**Gluetun**](https://github.com/qdm12/gluetun): VPN client in a thin Docker container.
+-   [**Tailscale**](https://tailscale.com/): VPN tunnel into my homelab so I can access from anywhere.
 -   [ ] [**ntfy**](https://ntfy.sh/): self-hosted notification server to replace Pushover.
--   [ ] [**Tailscale**](https://tailscale.com/): VPN tunnel into my homelab so I can access from anywhere.
 -   [ ] [**Headscale**](https://github.com/juanfont/headscale): self-hosted implementation of the Tailscale control server.
 -   [ ] [**Netbird**](https://netbird.io/)/[**Nebula**](https://nebula.defined.net/docs/): completely self-hosted VPN tunnel into homelab (once I'm nore advanced).
 

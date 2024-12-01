@@ -7,7 +7,8 @@ Documentation about the secrets
 ```
 DUCKDNS_API_TOKEN
 ACME_ACCOUNT_EMAIL
-DOMAIN
+DOMAIN_LOCAL
+DOMAIN_VPN
 ```
 
 ### DUCKDNS_API_TOKEN
@@ -18,9 +19,17 @@ The _token_ field on www.duckdns.org after logging in.
 
 A chosen email address. Mainly used when creating an ACME account with your CA, and is highly recommended in case there are problems with your certificates.
 
-### DOMAIN
+### DOMAIN_LOCAL
 
-Domain address which Caddy will server as a reverse proxy for.
+Domain address which Caddy will server as a reverse proxy for, when trying to reach service from the home network.
+
+On DuckDNS this is the domain for the IP address of the home server on the local home network.
+
+### DOMAIN_VPN
+
+Domain address which Caddy will server as a reverse proxy for, when trying to reach service from the Tailnet.
+
+On DuckDNS this is the domain for the Tailnet IP address of the home server.
 
 ## gluetun.env
 
