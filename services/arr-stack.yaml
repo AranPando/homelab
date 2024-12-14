@@ -2,27 +2,25 @@
 services:
   gluetun:
     container_name: gluetun
-    image: qmcgaw/gluetun
+    image: qmcgaw/gluetun:latest
     restart: unless-stopped
     cap_add:
       - NET_ADMIN
     devices:
       - /dev/net/tun:/dev/net/tun
-    env_file:
-      - path: ${SECRETS_PATH}/gluetun.env
     environment:
       - VPN_SERVICE_PROVIDER=protonvpn
       - VPN_TYPE=openvpn
       - TZ=${SERVER_TZ}
       - UPDATER_PERIOD=24h
+    env_file:
+      - path: ${SECRETS_PATH}/gluetun.env
   
   gluetun-speedtest-tracker:
     container_name: gluetun-speedtest-tracker
     image: lscr.io/linuxserver/speedtest-tracker:latest
     restart: unless-stopped
-    network_mode: service:gluetun
-    depends_on:
-      - gluetun
+    network_mode: "service:gluetun"
     environment:
       - APP_TIMEZONE=${SERVER_TZ}
       - DB_CONNECTION=sqlite
@@ -34,3 +32,16 @@ services:
       - path: ${SECRETS_PATH}/gluetun-speedtest-tracker.env
     volumes:
       - ${SERVER_CONFIG_PATH}/gluetun-speedtest-tracker:/config
+
+  qbittorrent:
+    container_name: qbittorrent
+    image: lscr.io/linuxserver/qbittorrent:latest
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    environment:
+      - TZ=${SERVER_TZ}
+    env_file:
+      - path: ${SECRETS_PATH}/qbittorrent.env
+    volumes:
+      - ${SERVER_CONFIG_PATH}/qbittorrent/appdata:/config
+      - ${SERVER_DATA_PATH}/downloads:/downloads
