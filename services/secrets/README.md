@@ -22,6 +22,9 @@ Documentation about the secrets
     - [PASSWORD](#password)
     - [EMAIL](#email)
   - [watchtower.env](#watchtowerenv)
+    - [WATCHTOWER\_NOTIFICATION\_URL](#watchtower_notification_url)
+    - [PUSHOVER\_API\_TOKEN, PUSHOVER\_USER\_KEY, PUSHOVER\_DEVICES](#pushover_api_token-pushover_user_key-pushover_devices)
+    - [WATCHTOWER\_NOTIFICATIONS\_HOSTNAME](#watchtower_notifications_hostname)
 
 ## Context
 
@@ -144,6 +147,31 @@ A chosen email address. Email address for GDPR requests. Must be specified when 
 PUSHOVER_API_TOKEN
 PUSHOVER_USER_KEY
 PUSHOVER_DEVICES
-WATCHTOWER_NOTIFICATION_URL
+WATCHTOWER_NOTIFICATION_URL=pushover://shoutrrr:$PUSHOVER_API_TOKEN@$PUSHOVER_USER_KEY/?devices=$PUSHOVER_DEVICES
 WATCHTOWER_NOTIFICATIONS_HOSTNAME
 ```
+
+Watchtower is set uo to send notification using [Pushover](https://pushover.net/) (paid service), built on top of the Shoutrrr architecture.
+
+Note: for formatting reasons that I cannot recall, all env variables in `watchtower.env` should NOT be wrapped by quotes. `watchtower.env` file is the sole exception to the standard.
+
+### WATCHTOWER_NOTIFICATION_URL
+
+The shoutrrr service URL to be used. This option can also reference a file, in which case the contents of the file are used.
+
+`pushover://shoutrrr:apiToken@userKey/?devices=device1[,device2, ...]`
+
+Full guide on the construction of the URL: [https://containrrr.dev/shoutrrr/v0.8/services/pushover/](https://containrrr.dev/shoutrrr/v0.8/services/pushover/)
+
+### PUSHOVER_API_TOKEN, PUSHOVER_USER_KEY, PUSHOVER_DEVICES
+
+Components of the `WATCHTOWER_NOTIFICATION_URL`. They can be baked in as part of the URL, but I prefer to separate them out for readability.
+
+Full guide on how to define and fetch each of those components: [https://containrrr.dev/shoutrrr/v0.8/services/pushover/](https://containrrr.dev/shoutrrr/v0.8/services/pushover/)
+
+
+### WATCHTOWER_NOTIFICATIONS_HOSTNAME
+
+Custom hostname specified in subject/title. Useful to override the operating system hostname.
+
+Used to identify the system sending the message, e.g. Ubuntu Server vs Raspberry Pi
