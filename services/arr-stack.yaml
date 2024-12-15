@@ -45,4 +45,4 @@ services:
       - path: ${SECRETS_PATH}/puid_guid.env
     volumes:
       - ${SERVER_CONFIG_PATH}/qbittorrent/appdata:/config
-      - ${SERVER_DATA_PATH}/downloads:/downloads
+      - ${SERVER_DATA_PATH}/downloads/qbittorrent:/downloads
