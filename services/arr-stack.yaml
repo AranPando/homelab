@@ -30,6 +30,7 @@ services:
       - PRUNE_RESULTS_OLDER_THAN=92
     env_file: 
       - path: ${SECRETS_PATH}/gluetun-speedtest-tracker.env
+      - path: ${SECRETS_PATH}/puid_guid.env
     volumes:
       - ${SERVER_CONFIG_PATH}/gluetun-speedtest-tracker:/config
 
@@ -41,7 +42,7 @@ services:
     environment:
       - TZ=${SERVER_TZ}
     env_file:
-      - path: ${SECRETS_PATH}/qbittorrent.env
+      - path: ${SECRETS_PATH}/puid_guid.env
     volumes:
       - ${SERVER_CONFIG_PATH}/qbittorrent/appdata:/config
       - ${SERVER_DATA_PATH}/downloads:/downloads

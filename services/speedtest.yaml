@@ -13,6 +13,7 @@ services:
       - PRUNE_RESULTS_OLDER_THAN=92  # optional
     env_file: 
       - path: ${SECRETS_PATH}/speedtest-tracker.env
+      - path: ${SECRETS_PATH}/puid_guid.env
     volumes:
       - ${SERVER_CONFIG_PATH}/speedtest-tracker:/config
 

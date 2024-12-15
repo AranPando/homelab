@@ -5,6 +5,8 @@ Documentation about the secrets
 - [Secrets documentation](#secrets-documentation)
   - [Context](#context)
   - [Standards](#standards)
+  - [puid\_guid.env](#puid_guidenv)
+    - [PUID \& PGID](#puid--pgid)
   - [caddy.env](#caddyenv)
     - [DUCKDNS\_API\_TOKEN](#duckdns_api_token)
     - [ACME\_ACCOUNT\_EMAIL](#acme_account_email)
@@ -16,7 +18,6 @@ Documentation about the secrets
     - [SERVER\_CITIES](#server_cities)
   - [speedtest-tracker.env / gluetun-speedtest-tracker.env](#speedtest-trackerenv--gluetun-speedtest-trackerenv)
     - [APP\_KEY](#app_key)
-    - [PUID \& PGID](#puid--pgid)
   - [speedtest.env](#speedtestenv)
     - [PASSWORD](#password)
     - [EMAIL](#email)
@@ -41,6 +42,20 @@ env_file:
 
 1.  Environment variables are upper case, unless the importing service requires otherwise.
 2.  Secrets (values to the environment variables) must be wrapped by (double) quotation marks, unless the importing service requires otherwise. See Watchtower
+
+## puid_guid.env
+
+```
+PUID
+PGID
+```
+
+Include this .env file when the service requires the PUID & GUID values for the machine.
+
+### PUID & PGID
+
+Local user ID & group ID for volume permissions. It should match the user & group ID of the machine hosting the service. Without there could be some permissions issues.
+
 
 ## caddy.env
 
@@ -102,17 +117,11 @@ The list of available cities is VPN provider specific. See at https://account.pr
 
 ```
 APP_KEY
-PUID
-PGID
 ```
 
 ### APP_KEY
 
 Token generated from https://speedtest-tracker.dev/
-
-### PUID & PGID
-
-local user ID & group ID for volume permissions. It should match the user & group ID of the machine hosting the service. Without there could be some permissions issues.
 
 ## speedtest.env
 
