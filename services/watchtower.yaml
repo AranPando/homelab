@@ -6,9 +6,10 @@ services:
     restart: unless-stopped
     environment:
       - TZ=${SERVER_TZ}
-      - WATCHTOWER_CLEANUP=true          # Removes old images after updating container
-      - WATCHTOWER_INCLUDE_STOPPED=true  # Also update non-running containers
-      - WATCHTOWER_SCHEDULE=0 7 * * *    # Run at 7am daily
+      - WATCHTOWER_CLEANUP=true             # Removes old images after updating container
+      - WATCHTOWER_INCLUDE_STOPPED=true     # Also update non-running containers
+      - WATCHTOWER_SCHEDULE=0 7 * * *       # Run at 7am daily
+      - WATCHTOWER_NO_STARTUP_MESSAGE=true  # Don't send notification on start up
       # WATCHTOWER_NOTIFICATION_URL defined in secrets/watchtower.env (API token)
       # WATCHTOWER_NOTIFICATIONS_HOSTNAME defined in secrets/watchtower.env (host specific)
     env_file: 
