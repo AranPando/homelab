@@ -18,6 +18,7 @@
     @youtube-dl         host youtube-dl.{$DOMAIN_LOCAL} youtube-dl.{$DOMAIN_VPN}
     @gluetun-st         host gluetun-st.{$DOMAIN_LOCAL} gluetun-st.{$DOMAIN_VPN}
     @qbittorrent        host qbittorrent.{$DOMAIN_LOCAL} qbittorrent.{$DOMAIN_VPN}
+    @prowlarr           host prowlarr.{$DOMAIN_LOCAL} prowlarr.{$DOMAIN_VPN}
 
 
     reverse_proxy @speedtest          speedtest:80
@@ -25,4 +26,5 @@
     reverse_proxy @youtube-dl         youtube-dl:8080
     reverse_proxy @gluetun-st         gluetun:80
     reverse_proxy @qbittorrent        gluetun:8080
+    reverse_proxy @prowlarr           gluetun:9696
 }

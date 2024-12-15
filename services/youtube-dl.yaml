@@ -5,5 +5,5 @@ services:
     image: nbr23/youtube-dl-server:yt-dlp
     restart: unless-stopped
     volumes:
-      - ${SERVER_DATA_PATH}/youtube-dl:/youtube-dl
+      - ${SERVER_DATA_PATH}/media/youtube:/youtube-dl
       - ./youtube-dl_config.yaml:/app_config/config.yml:ro

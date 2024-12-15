@@ -34,6 +34,7 @@ services:
     volumes:
       - ${SERVER_CONFIG_PATH}/gluetun-speedtest-tracker:/config
 
+  # Downloader
   qbittorrent:
     container_name: qbittorrent
     image: lscr.io/linuxserver/qbittorrent:latest
@@ -44,5 +45,6 @@ services:
     env_file:
       - path: ${SECRETS_PATH}/puid_guid.env
     volumes:
-      - ${SERVER_CONFIG_PATH}/qbittorrent/appdata:/config
-      - ${SERVER_DATA_PATH}/downloads/qbittorrent:/downloads
+      - ${SERVER_CONFIG_PATH}/qbittorrent:/config
+      - ${SERVER_DATA_PATH}/downloads:/downloads
+
