@@ -19,6 +19,9 @@
     @gluetun-st         host gluetun-st.{$DOMAIN_LOCAL} gluetun-st.{$DOMAIN_VPN}
     @qbittorrent        host qbittorrent.{$DOMAIN_LOCAL} qbittorrent.{$DOMAIN_VPN}
     @prowlarr           host prowlarr.{$DOMAIN_LOCAL} prowlarr.{$DOMAIN_VPN}
+    @sonarr             host sonarr.{$DOMAIN_LOCAL} sonarr.{$DOMAIN_VPN}
+    @radarr             host radarr.{$DOMAIN_LOCAL} radarr.{$DOMAIN_VPN}
+    @bazarr             host bazarr.{$DOMAIN_LOCAL} bazarr.{$DOMAIN_VPN}
 
 
     reverse_proxy @speedtest          speedtest:80
@@ -27,4 +30,7 @@
     reverse_proxy @gluetun-st         gluetun:80
     reverse_proxy @qbittorrent        gluetun:8080
     reverse_proxy @prowlarr           gluetun:9696
+    reverse_proxy @sonarr             gluetun:8989
+    reverse_proxy @radarr             gluetun:7878
+    reverse_proxy @bazarr             gluetun:6767
 }

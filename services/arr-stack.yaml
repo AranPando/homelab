@@ -48,3 +48,57 @@ services:
       - ${SERVER_CONFIG_PATH}/qbittorrent:/config
       - ${SERVER_DATA_PATH}/downloads:/downloads
 
+  # Index manager
+  prowlarr:
+    container_name: prowlarr
+    image: lscr.io/linuxserver/prowlarr:latest
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    environment:
+      - TZ=${SERVER_TZ}
+    env_file:
+      - path: ${SECRETS_PATH}/puid_guid.env
+    volumes:
+      - ${SERVER_CONFIG_PATH}/prowlarr:/config
+
+  # TV Show searcher
+  sonarr:
+    container_name: sonarr
+    image: lscr.io/linuxserver/sonarr:latest
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    environment:
+      - TZ=${SERVER_TZ}
+    env_file:
+      - path: ${SECRETS_PATH}/puid_guid.env
+    volumes:
+      - ${SERVER_CONFIG_PATH}/sonarr:/config
+      - ${SERVER_DATA_PATH}/data:/data
+
+  # Movie searcher
+  radarr:
+    container_name: radarr
+    image: lscr.io/linuxserver/radarr:latest
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    environment:
+      - TZ=${SERVER_TZ}
+    env_file:
+      - path: ${SECRETS_PATH}/puid_guid.env
+    volumes:
+      - ${SERVER_CONFIG_PATH}/radarr:/config
+      - ${SERVER_DATA_PATH}/data:/data
+
+  # Subtitles searcher
+  bazarr:
+    container_name: bazarr
+    image: lscr.io/linuxserver/bazarr:latest
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    environment:
+      - TZ=${SERVER_TZ}
+    env_file:
+      - path: ${SECRETS_PATH}/puid_guid.env
+    volumes:
+      - ${SERVER_CONFIG_PATH}/bazarr:/config
+      - ${SERVER_DATA_PATH}/data:/data
