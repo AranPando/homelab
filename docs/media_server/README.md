@@ -5,11 +5,9 @@
 ```
 data
 ├── downloads
-│   ├── incomplete
-│   ├── torrents
-│   └── complete
-│       ├── movies
-│       └── tv
+│   ├── movies
+│   ├── tv
+│   └── other
 └── media
     ├── movies
     ├── tv
