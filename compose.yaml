@@ -9,6 +9,6 @@ name: homelab
 include:
   - path: services/caddy.yaml
   - path: services/speedtest.yaml
-  - path: services/watchtower.yaml
+  # - path: services/watchtower.yaml
   - path: services/youtube-dl.yaml
-  - path: services/arr-stack.yaml
+  - path: services/downloadarr.yaml
