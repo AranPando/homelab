@@ -46,7 +46,7 @@ services:
       - path: ${SECRETS_PATH}/puid_guid.env
     volumes:
       - ${SERVER_CONFIG_PATH}/qbittorrent:/config
-      - ${SERVER_DATA_PATH}/downloads:/downloads
+      - ${SERVER_DATA_PATH}/downloads:/data/downloads
 
   # Index manager
   prowlarr:
@@ -73,7 +73,7 @@ services:
       - path: ${SECRETS_PATH}/puid_guid.env
     volumes:
       - ${SERVER_CONFIG_PATH}/sonarr:/config
-      - ${SERVER_DATA_PATH}/data:/data
+      - ${SERVER_DATA_PATH}:/data
 
   # Movie searcher
   radarr:
@@ -87,7 +87,7 @@ services:
       - path: ${SECRETS_PATH}/puid_guid.env
     volumes:
       - ${SERVER_CONFIG_PATH}/radarr:/config
-      - ${SERVER_DATA_PATH}/data:/data
+      - ${SERVER_DATA_PATH}:/data
 
   # Subtitles searcher
   bazarr:
@@ -101,4 +101,4 @@ services:
       - path: ${SECRETS_PATH}/puid_guid.env
     volumes:
       - ${SERVER_CONFIG_PATH}/bazarr:/config
-      - ${SERVER_DATA_PATH}/data:/data
+      - ${SERVER_DATA_PATH}:/data
