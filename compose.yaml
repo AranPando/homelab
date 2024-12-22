@@ -12,3 +12,4 @@ include:
   # - path: services/watchtower.yaml
   - path: services/youtube-dl.yaml
   - path: services/downloadarr.yaml
+  - path: services/jelly.yaml

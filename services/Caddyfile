@@ -13,15 +13,22 @@
 #   ACME DNS-01 challenge
 *.{$DOMAIN_LOCAL} *.{$DOMAIN_VPN} {
 
+    # Network tracking
     @speedtest          host speedtest.{$DOMAIN_LOCAL} speedtest.{$DOMAIN_VPN}
     @speedtest-tracker  host speedtest-tracker.{$DOMAIN_LOCAL} speedtest-tracker.{$DOMAIN_VPN}
-    @youtube-dl         host youtube-dl.{$DOMAIN_LOCAL} youtube-dl.{$DOMAIN_VPN}
     @gluetun-st         host gluetun-st.{$DOMAIN_LOCAL} gluetun-st.{$DOMAIN_VPN}
+    
+    # Media downloading
     @qbittorrent        host qbittorrent.{$DOMAIN_LOCAL} qbittorrent.{$DOMAIN_VPN}
     @prowlarr           host prowlarr.{$DOMAIN_LOCAL} prowlarr.{$DOMAIN_VPN}
     @sonarr             host sonarr.{$DOMAIN_LOCAL} sonarr.{$DOMAIN_VPN}
     @radarr             host radarr.{$DOMAIN_LOCAL} radarr.{$DOMAIN_VPN}
     @bazarr             host bazarr.{$DOMAIN_LOCAL} bazarr.{$DOMAIN_VPN}
+    @youtube-dl         host youtube-dl.{$DOMAIN_LOCAL} youtube-dl.{$DOMAIN_VPN}
+    
+    # Media front
+    @jellyfin           host jellyfin.{$DOMAIN_LOCAL} jellyfin.{$DOMAIN_VPN}
+    @jellyseerr         host jellyseerr.{$DOMAIN_LOCAL} jellyseerr.{$DOMAIN_VPN}
 
 
     reverse_proxy @speedtest          speedtest:80
@@ -33,4 +40,7 @@
     reverse_proxy @sonarr             gluetun:8989
     reverse_proxy @radarr             gluetun:7878
     reverse_proxy @bazarr             gluetun:6767
+    reverse_proxy @jellyfin           jellyfin:8096
+    reverse_proxy @jellyseerr         jellyseerr:5055
+
 }
