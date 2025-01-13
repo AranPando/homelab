@@ -19,7 +19,7 @@ services:
 
   speedtest:
     container_name: speedtest
-    image: ghcr.io/librespeed/speedtest:latest
+    image: linuxserver/librespeed:latest
     restart: unless-stopped
     environment:
       MODE: standalone
