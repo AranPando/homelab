@@ -22,10 +22,11 @@ services:
     image: linuxserver/librespeed:latest
     restart: unless-stopped
     environment:
-      MODE: standalone
-      TITLE: PandaSpeed
-      TELEMETRY: true
+      - MODE=standalone
+      - TITLE=PandaSpeed
+      - TELEMETRY=true
     env_file: 
       - path: ${SECRETS_PATH}/speedtest.env
+      - path: ${SECRETS_PATH}/puid_guid.env
     volumes:
       - ${SERVER_CONFIG_PATH}/librespeed:/database
