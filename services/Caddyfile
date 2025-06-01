@@ -26,7 +26,7 @@
     @bazarr             host bazarr.{$DOMAIN_LOCAL} bazarr.{$DOMAIN_VPN}
     @youtube-dl         host youtube-dl.{$DOMAIN_LOCAL} youtube-dl.{$DOMAIN_VPN}
     
-    # Media front
+    # Media front-end
     @jellyfin           host jellyfin.{$DOMAIN_LOCAL} jellyfin.{$DOMAIN_VPN}
     @jellyseerr         host jellyseerr.{$DOMAIN_LOCAL} jellyseerr.{$DOMAIN_VPN}
 

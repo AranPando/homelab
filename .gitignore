@@ -5,4 +5,4 @@ services/secrets/*.env
 config/
 
 # Exclude data directory
-data/
+.data
