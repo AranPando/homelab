@@ -16,24 +16,6 @@ services:
     env_file:
       - path: ${SECRETS_PATH}/gluetun.env
   
-  # gluetun-speedtest-tracker:
-  #   container_name: gluetun-speedtest-tracker
-  #   image: lscr.io/linuxserver/speedtest-tracker:latest
-  #   restart: unless-stopped
-  #   network_mode: "service:gluetun"
-  #   environment:
-  #     - APP_TIMEZONE=${SERVER_TZ}
-  #     - DB_CONNECTION=sqlite
-  #     - PUBLIC_DASHBOARD=true
-  #     - SPEEDTEST_SCHEDULE="0 * * * *"  # every hour, every day, on the hour.
-  #     - DISPLAY_TIMEZONE=${SERVER_TZ}
-  #     - PRUNE_RESULTS_OLDER_THAN=92
-  #   env_file: 
-  #     - path: ${SECRETS_PATH}/gluetun-speedtest-tracker.env
-  #     - path: ${SECRETS_PATH}/puid_guid.env
-  #   volumes:
-  #     - ${SERVER_CONFIG_PATH}/gluetun-speedtest-tracker:/config
-
   # Downloader
   qbittorrent:
     container_name: qbittorrent
@@ -60,6 +42,18 @@ services:
       - path: ${SECRETS_PATH}/puid_guid.env
     volumes:
       - ${SERVER_CONFIG_PATH}/prowlarr:/config
+
+  # Cloudflare proxy
+  flaresolverr:
+    container_name: flaresolverr
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+      - LOG_HTML=${LOG_HTML:-false}
+      - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
+      - TZ=${SERVER_TZ}
 
   # TV Show searcher
   sonarr:
