@@ -30,6 +30,27 @@ services:
       - ${SERVER_CONFIG_PATH}/qbittorrent:/config
       - ${SERVER_DATA_PATH}/downloads:/data/downloads
 
+  # Download unpacker
+  unpackerr:
+    container_name: unpackerr
+    image: ghcr.io/unpackerr/unpackerr:latest
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    volumes:
+    - ${SERVER_DATA_PATH}:/data
+    - ${SERVER_CONFIG_PATH}/unpackerr:/config
+    user: 1000:1000
+    environment:
+      - TZ=${SERVER_TZ}
+      - UN_SONARR_0_URL=http://localhost:8989
+      - UN_RADARR_0_URL=http://localhost:7878
+      - UN_FOLDER_0_PATH=/data/downloads/movies
+      - UN_FOLDER_1_PATH=/data/downloads/tv
+      - UN_FOLDER_2_PATH=/data/downloads/other
+      - UN_LOG_FILE=/config/unpackerr.log
+    env_file:
+      - path: ${SECRETS_PATH}/unpackerr.env
+
   # Index manager
   prowlarr:
     container_name: prowlarr
