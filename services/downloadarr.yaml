@@ -10,7 +10,7 @@ services:
       - /dev/net/tun:/dev/net/tun
     environment:
       - VPN_SERVICE_PROVIDER=protonvpn
-      - VPN_TYPE=openvpn
+      - VPN_TYPE=wireguard
       - TZ=${SERVER_TZ}
       - UPDATER_PERIOD=24h
     env_file:
@@ -19,7 +19,7 @@ services:
   # Downloader
   qbittorrent:
     container_name: qbittorrent
-    image: lscr.io/linuxserver/qbittorrent:latest
+    image: lscr.io/linuxserver/qbittorrent:libtorrentv1
     restart: unless-stopped
     network_mode: "service:gluetun"
     environment:
