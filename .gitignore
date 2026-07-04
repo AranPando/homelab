@@ -1,5 +1,6 @@
 # Exclude secrets
-services/secrets/*.env
+services/secrets/*
+!services/secrets/README.MD
 
 # Exclude config directory
 config/

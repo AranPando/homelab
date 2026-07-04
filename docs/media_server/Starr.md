@@ -24,7 +24,7 @@ This will set up the app with the download client to torrent the media
 
 2. Put the username and password of the login of your download client into `username` and `password` fields.
 
-3. Set up category in download client 
+3. Set up category in download client
 
     See [Starr tags management](/docs/media_server/starr_tags_management.md).
 

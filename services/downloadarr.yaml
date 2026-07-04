@@ -8,20 +8,48 @@ services:
       - NET_ADMIN
     devices:
       - /dev/net/tun:/dev/net/tun
+    volumes:
+      - ${SECRETS_PATH}/gluetun-config.toml:/gluetun/auth/config.toml  # Mount auth config
     environment:
       - VPN_SERVICE_PROVIDER=protonvpn
       - VPN_TYPE=wireguard
       - TZ=${SERVER_TZ}
       - UPDATER_PERIOD=24h
+      - PORT_FORWARD_ONLY=on
+      - VPN_PORT_FORWARDING=on
+      - GLUETUN_HTTP_CONTROL_SERVER_ENABLE=on  # Give qSticky API access to gluetun
     env_file:
       - path: ${SECRETS_PATH}/gluetun.env
   
+  qsticky:
+    container_name: qsticky
+    image: ghcr.io/monstermuffin/qsticky:latest
+    restart: unless-stopped
+    environment:
+      LOG_LEVEL: INFO
+      # qbittorrent settings
+      QBITTORRENT_HOST: gluetun
+      QBITTORRENT_HTTPS: false
+      QBITTORRENT_PORT: 8080  # Must patch the port set in qbittorrent
+      # gluetun settings
+      GLUETUN_HOST: gluetun
+      GLUETUN_AUTH_TYPE: apikey
+    env_file:
+      - path: ${SECRETS_PATH}/qsticky.env
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import json; exit(0 if json.load(open('/app/health/status.json'))['healthy'] else 1)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
   # Downloader
   qbittorrent:
     container_name: qbittorrent
     image: lscr.io/linuxserver/qbittorrent:libtorrentv1
     restart: unless-stopped
     network_mode: "service:gluetun"
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
     environment:
       - TZ=${SERVER_TZ}
     env_file:
@@ -29,6 +57,8 @@ services:
     volumes:
       - ${SERVER_CONFIG_PATH}/qbittorrent:/config
       - ${SERVER_DATA_PATH}/downloads:/data/downloads
+    depends_on:
+      - gluetun
 
   # Download unpacker
   unpackerr:
@@ -36,6 +66,8 @@ services:
     image: ghcr.io/unpackerr/unpackerr:latest
     restart: unless-stopped
     network_mode: "service:gluetun"
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
     volumes:
     - ${SERVER_DATA_PATH}:/data
     - ${SERVER_CONFIG_PATH}/unpackerr:/config
@@ -50,6 +82,8 @@ services:
       - UN_LOG_FILE=/config/unpackerr.log
     env_file:
       - path: ${SECRETS_PATH}/unpackerr.env
+    depends_on:
+      - gluetun
 
   # Index manager
   prowlarr:
@@ -57,12 +91,18 @@ services:
     image: lscr.io/linuxserver/prowlarr:latest
     restart: unless-stopped
     network_mode: "service:gluetun"
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
     environment:
       - TZ=${SERVER_TZ}
+      - COMPlus_SystemNetSocketsDisableIPv6=1  # Disable IPv6
     env_file:
       - path: ${SECRETS_PATH}/puid_guid.env
     volumes:
       - ${SERVER_CONFIG_PATH}/prowlarr:/config
+    depends_on:
+      - gluetun
+      - flaresolverr
 
   # Cloudflare proxy
   flaresolverr:
@@ -70,11 +110,15 @@ services:
     image: ghcr.io/flaresolverr/flaresolverr:latest
     restart: unless-stopped
     network_mode: "service:gluetun"
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
     environment:
       - LOG_LEVEL=${LOG_LEVEL:-info}
       - LOG_HTML=${LOG_HTML:-false}
       - CAPTCHA_SOLVER=${CAPTCHA_SOLVER:-none}
       - TZ=${SERVER_TZ}
+    depends_on:
+      - gluetun
 
   # TV Show searcher
   sonarr:
@@ -82,6 +126,8 @@ services:
     image: lscr.io/linuxserver/sonarr:latest
     restart: unless-stopped
     network_mode: "service:gluetun"
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
     environment:
       - TZ=${SERVER_TZ}
     env_file:
@@ -89,6 +135,9 @@ services:
     volumes:
       - ${SERVER_CONFIG_PATH}/sonarr:/config
       - ${SERVER_DATA_PATH}:/data
+    depends_on:
+      - gluetun
+      - prowlarr
 
   # Movie searcher
   radarr:
@@ -96,6 +145,8 @@ services:
     image: lscr.io/linuxserver/radarr:latest
     restart: unless-stopped
     network_mode: "service:gluetun"
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
     environment:
       - TZ=${SERVER_TZ}
     env_file:
@@ -103,6 +154,9 @@ services:
     volumes:
       - ${SERVER_CONFIG_PATH}/radarr:/config
       - ${SERVER_DATA_PATH}:/data
+    depends_on:
+      - gluetun
+      - prowlarr
 
   # Subtitles searcher
   bazarr:
@@ -110,6 +164,8 @@ services:
     image: lscr.io/linuxserver/bazarr:latest
     restart: unless-stopped
     network_mode: "service:gluetun"
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
     environment:
       - TZ=${SERVER_TZ}
     env_file:
@@ -117,3 +173,5 @@ services:
     volumes:
       - ${SERVER_CONFIG_PATH}/bazarr:/config
       - ${SERVER_DATA_PATH}:/data
+    depends_on:
+      - gluetun
